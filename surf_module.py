@@ -1,16 +1,17 @@
 
-
+from user_validation import validation_for_yes_no, validation_for_choice, validation_for_int
 def surfing(points, weather_today):
 
     """
-    performs surfing, mass, ice cream
+    takes the user through the activities of surfing, mass, and ice cream
+
     input: user preference
-    output: points earned
-    
+    output: points earned and updated
+    side effects: none
     """
     import time
     import random
-    surfing = input("Would you like to surf the morning tides on Newport Beach before your first class?(yes/no): ").lower()
+    surfing = validation_for_yes_no("Would you like to surf the morning tides on Newport Beach before your first class?(yes/no): ")
     if surfing == "yes" and weather_today in ["sunny", "windy", "rainy"]:
         #proceed to running the surfing block
         print("Good choice! Let's go to Newport Beach with a 10-minute helicopter ride")
@@ -19,7 +20,7 @@ def surfing(points, weather_today):
         time.sleep(2)
         print("Now we are at Newport Beach. Enjoy the chilly water!")
         points += 15
-        wave_catches = int(input("How many waves do you plan to catch this morning?:"))
+        wave_catches = validation_for_int("How many waves do you plan to catch this morning?:")
         actual_wave_catches = random.randint(5,20)
         if wave_catches == actual_wave_catches:
             print(f"Good guess! You were able to catch exactly {wave_catches} waves!")
@@ -29,7 +30,7 @@ def surfing(points, weather_today):
         time.sleep(3)
 
         #proceed to daily mass block
-        mass = input("It is now 7AM. Would you join the monks at the Abbey nearby for morning mass? (yes/no):").lower()
+        mass = validation_for_yes_no("It is now 7AM. Would you join the monks at the Abbey nearby for morning mass? (yes/no):").lower()
         if mass == "yes":
             points += 10
             print("Good kid! You attended mass and earned a pat on the shoulder from the Abbot, saying: “You have been a faithful servant today!”")
@@ -37,9 +38,10 @@ def surfing(points, weather_today):
             print("That's okay. You can still attend daily night mass back in St.Joseph's chapel at holy cross!")
 
         #proceed to the ice cream shop block
-        icecream = input("Now you may stop by Clemie's Ice Cream before taking the helicopter back. Would you like that? (yes/no):").lower()
+        icecream = validation_for_yes_no("Now you may stop by Clemie's Ice Cream before taking the helicopter back. Would you like that? (yes/no):")
         if icecream == "yes":
-            flavor = input("Please order a flavor from black raspberry, coffee, maple walnut, vegan vanilla")
+            flavor = validation_for_choice("Please order a flavor from black raspberry, coffee, maple walnut, vegan vanilla",
+                                           ("black raspberry", "coffee", "maple walnut", "vegan vanilla"))
             print(f"Good choice of fats. Your {flavor} order will be served soon. 600 calories intake and morning insulin spike is acheived!")
             points -= 5
         else:
